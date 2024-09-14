@@ -23,19 +23,7 @@ int main(int argc, char** argv) {
 
 	Solver jitJss;
 
-	inst.parse(instPath);
+	jitJss.solve(instPath);
 
-	jitJss.gifflerThompson();
-
-	double result = jitJss.scheduler();
-
-	double resultRelax = jitJss.relax_1(jitJss.sequence);
-
-	if (!jitJss.verifySchedule()) {
-		cout << "Solucao nao viavel!!!\n\n";
-	}
-	else {
-		cout << "initial sol: " << result << " relax2: " << resultRelax << "\n Solucao viavel!!!\n\n";
-	}
 }
 
