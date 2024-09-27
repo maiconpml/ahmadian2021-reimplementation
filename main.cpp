@@ -1,15 +1,7 @@
-#include <fstream>
 #include <string.h>
-#include <vector>
-#include <set>
-#include <cassert>
-#include <climits>
 #include <iostream>
-#include <ilcplex/cplex.h>
-#include <ilcplex/ilocplex.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include <chrono>
 #include "Solver.hpp"
 #include "Instance.hpp"
 
@@ -22,8 +14,28 @@ int main(int argc, char** argv) {
 	srand(time(NULL));
 
 	Solver jitJss;
+	double meanPenalties;
+	double bestPenalties = INT32_MAX;
+	double bestTime;
+	unsigned runNTimes = 1;
+	for (unsigned i = 0; i < runNTimes; ++i) {
 
-	jitJss.solve(instPath);
+		chrono::high_resolution_clock::time_point tpStart = chrono::high_resolution_clock::now();
+
+		jitJss.solve(instPath);
+
+		double millisecsFound = chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - tpStart).count();;
+
+		if (jitJss.verifySchedule()) {
+			meanPenalties += jitJss.penalties;
+			if (bestPenalties > jitJss.penalties) {
+				bestPenalties = jitJss.penalties;
+				bestTime = millisecsFound / 1000;
+			}
+		}
+	}
+
+	cout << instPath << " " << bestPenalties << " " << meanPenalties/runNTimes << " " << bestTime << endl;
 
 }
 
