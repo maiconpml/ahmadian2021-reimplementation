@@ -9,6 +9,11 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
+	if (argc < 2) {
+		cout << "Inform the instance path" << endl << "./program [INSTANCE_PATH]" << endl;
+		return 1;
+	}
+
 	string instPath = argv[1];
 
 	srand(time(NULL));
@@ -35,7 +40,6 @@ int main(int argc, char** argv) {
 		}
 	}
 
-	cout << instPath << " " << bestPenalties << " " << meanPenalties/runNTimes << " " << bestTime << endl;
-
+	cout << instPath << ": result " << bestPenalties << "; time(s) " << bestTime << endl;
 }
 
