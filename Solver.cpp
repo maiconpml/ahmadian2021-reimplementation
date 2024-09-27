@@ -2,14 +2,9 @@
 #include <string.h>
 #include <vector>
 #include <set>
-#include <cassert>
-#include <climits>
 #include <iostream>
 #include <ilcplex/cplex.h>
 #include <ilcplex/ilocplex.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include <queue>
 #include "Solver.hpp"
 #include "Instance.hpp"
